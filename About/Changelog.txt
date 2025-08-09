@@ -1,0 +1,4 @@
+# Changelog for SaveModlistAsCollection
+
+1.6.0 - First publish
+

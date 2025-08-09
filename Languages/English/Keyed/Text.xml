@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SMAC.IgnoreThisMod>Ignore this mod in the modlist</SMAC.IgnoreThisMod>
+  <SMAC.SaveModlist>Save current modlist</SMAC.SaveModlist>
+  <SMAC.modVersion>Installed mod-version: {0}</SMAC.modVersion>
+  <SMAC.warning>This will replace all {0} existing items in this collection with your currently active mods that are available on steam. Continue?</SMAC.warning>
+  <SMAC.Items>Mods: {0}</SMAC.Items>
+  <SMAC.Collections>Collections</SMAC.Collections>
+  <SMAC.reallyAbort>Really abort the update?</SMAC.reallyAbort>
+  <SMAC.updateStatus>Update-status</SMAC.updateStatus>
+  <SMAC.failed>Update failed!</SMAC.failed>
+  <SMAC.noActiveMods>No mods to save!</SMAC.noActiveMods>
+  <SMAC.startingUpdate>No mods to save!</SMAC.startingUpdate>
+  <SMAC.foundMods>Found {0} active steam mods</SMAC.foundMods>
+  <SMAC.fetchingExisting>Fetching existing mods in collection</SMAC.fetchingExisting>
+  <SMAC.removingExisting>Removing existing {0} mods from collection</SMAC.removingExisting>
+  <SMAC.removalFailed>Removal of {0} failed: {1}</SMAC.removalFailed>
+  <SMAC.adding>Adding {0} mods to collection</SMAC.adding>
+  <SMAC.collectionUpdated>{0} updated!</SMAC.collectionUpdated>
+  <SMAC.new>Create a new steam collection</SMAC.new>
+  <SMAC.noCollections>You have no collections, create one first</SMAC.noCollections>
+  <SMAC.create>Create</SMAC.create>
+</LanguageData>
