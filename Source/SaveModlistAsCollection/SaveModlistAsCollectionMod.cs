@@ -85,7 +85,7 @@ internal class SaveModlistAsCollectionMod : Mod
         {
             listingStandard.Gap();
             GUI.contentColor = Color.gray;
-            listingStandard.Label("Modname.CurrentModVersion".Translate(currentVersion));
+            listingStandard.Label("SMAC.modVersion".Translate(currentVersion));
             GUI.contentColor = Color.white;
         }
 
@@ -109,11 +109,18 @@ internal class SaveModlistAsCollectionMod : Mod
                 .Where(mod => !mod.IsCoreMod && mod != thisMod && mod.GetPublishedFileId() != PublishedFileId_t.Invalid)
                 .ToList();
 
-            if (activeMods.Count == 0)
+            switch (activeMods.Count)
             {
-                StatusMessages.Add("SMAC.noActiveMods".Translate());
-                Updating = false;
-                return;
+                case 0:
+                    StatusMessages.Add("SMAC.noActiveMods".Translate());
+                    StatusMessages.Add("SMAC.failed".Translate());
+                    Updating = false;
+                    return;
+                case > 1000:
+                    StatusMessages.Add("SMAC.tooManyMods".Translate());
+                    StatusMessages.Add("SMAC.failed".Translate());
+                    Updating = false;
+                    return;
             }
 
             StatusMessages.Add("SMAC.foundMods".Translate(activeMods.Count));
@@ -140,47 +147,50 @@ internal class SaveModlistAsCollectionMod : Mod
                 ActivityMonitor = !ActivityMonitor;
             }
 
-            var publishedFileIDArray = new PublishedFileId_t[collection.CollectionItems];
-            var success = SteamUGC.GetQueryUGCChildren(collectionQueryResult.m_handle, 0, publishedFileIDArray,
-                (uint)publishedFileIDArray.Length);
-            if (!success)
+            if (collection.CollectionItems > 0)
             {
-                StatusMessages.Add("SMAC.failed".Translate());
-                Updating = false;
-                return;
-            }
-
-            StatusMessages.Add("SMAC.removingExisting".Translate(collection.CollectionItems));
-            lastModInCollection = publishedFileIDArray[^1];
-            for (var index = 0; index < publishedFileIDArray.Length - 1; index++)
-            {
-                var publishedFileIdT = publishedFileIDArray[index];
-                removeUgcDependencyResult = new RemoveUGCDependencyResult_t();
-                var removeDependencyHandle = SteamUGC.RemoveDependency(collection.CollectionId, publishedFileIdT);
-                onRemoveUgcDependencyCompletedCallResult.Set(removeDependencyHandle);
-                while (removeUgcDependencyResult.m_eResult == EResult.k_EResultNone)
+                var publishedFileIDArray = new PublishedFileId_t[collection.CollectionItems];
+                var success = SteamUGC.GetQueryUGCChildren(collectionQueryResult.m_handle, 0, publishedFileIDArray,
+                    (uint)publishedFileIDArray.Length);
+                if (!success)
                 {
-                    Thread.Sleep(5);
-                    SteamAPI.RunCallbacks();
-                    ActivityMonitor = !ActivityMonitor;
+                    StatusMessages.Add("SMAC.failed".Translate());
+                    Updating = false;
+                    return;
                 }
 
-                if (removeUgcDependencyResult.m_eResult == EResult.k_EResultOK)
+                StatusMessages.Add("SMAC.removingExisting".Translate(collection.CollectionItems));
+                lastModInCollection = publishedFileIDArray[^1];
+                for (var index = 0; index < publishedFileIDArray.Length - 1; index++)
                 {
-                    continue;
+                    var publishedFileIdT = publishedFileIDArray[index];
+                    removeUgcDependencyResult = new RemoveUGCDependencyResult_t();
+                    var removeDependencyHandle = SteamUGC.RemoveDependency(collection.CollectionId, publishedFileIdT);
+                    onRemoveUgcDependencyCompletedCallResult.Set(removeDependencyHandle);
+                    while (removeUgcDependencyResult.m_eResult == EResult.k_EResultNone)
+                    {
+                        Thread.Sleep(5);
+                        SteamAPI.RunCallbacks();
+                        ActivityMonitor = !ActivityMonitor;
+                    }
+
+                    if (removeUgcDependencyResult.m_eResult == EResult.k_EResultOK)
+                    {
+                        continue;
+                    }
+
+                    StatusMessages.Add("SMAC.removalFailed".Translate(publishedFileIdT.m_PublishedFileId.ToString(),
+                        removeUgcDependencyResult.m_eResult.ToString()));
+                    StatusMessages.Add("SMAC.failed".Translate());
+                    Updating = false;
+                    return;
                 }
-
-                StatusMessages.Add("SMAC.removalFailed".Translate(publishedFileIdT.m_PublishedFileId.ToString(),
-                    removeUgcDependencyResult.m_eResult.ToString()));
-                StatusMessages.Add("SMAC.failed".Translate());
-                Updating = false;
-                return;
             }
-
 
             StatusMessages.Add("SMAC.adding".Translate(activeMods.Count));
             var indexToStartFrom = 0;
-            if (lastModInCollection.m_PublishedFileId == activeMods[0].GetPublishedFileId().m_PublishedFileId)
+            if (collection.CollectionItems > 0 && lastModInCollection.m_PublishedFileId ==
+                activeMods[0].GetPublishedFileId().m_PublishedFileId)
             {
                 indexToStartFrom = 1;
             }
@@ -201,7 +211,7 @@ internal class SaveModlistAsCollectionMod : Mod
                 }
 
                 // Removing the previous left mod if it was not already the first
-                if (index == 0 && lastModInCollection != PublishedFileId_t.Invalid)
+                if (collection.CollectionItems > 0 && index == 0 && lastModInCollection != PublishedFileId_t.Invalid)
                 {
                     SteamUGC.RemoveDependency(collection.CollectionId, lastModInCollection);
                 }

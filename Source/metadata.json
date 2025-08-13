@@ -2,17 +2,18 @@
   "Continued": false,
   "CanAdd": "0",
   "CanRemove": "0",
-  "LastXmlCleaning": "2025-08-09T23:40:37.9847335+02:00",
+  "LastXmlCleaning": "2025-08-13T18:53:32.426585+02:00",
   "SocialImageSet": true,
   "FundingSet": true,
   "Patches": false,
   "Defs": false,
   "Assemblies": true,
-  "LinesOfCode": 19773,
+  "LinesOfCode": 20212,
   "LinesOfXML": 0,
   "SearchTags": [
     " modlist",
     " upload"
   ],
-  "PreviewVersion": "1.6"
+  "PreviewVersion": "1.6",
+  "CodeBaseSize": 68
 }

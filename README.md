@@ -1,4 +1,4 @@
-# [Save modlist as collection]()
+# [Save modlist as collection](https://steamcommunity.com/sharedfiles/filedetails/?id=3545688635)
 
 ![Image](https://i.imgur.com/iCj5o7O.png)
 
@@ -10,7 +10,7 @@ In this mods settings, you can save the current mod-list to a steam-collection.
 The mods are added to the collection in the current load-order and any existing mods on the list are removed.
 The mod will skip itself when adding mods to the collection.
 
-It of course requires you to play with an active steam-login and only the mods that are published on Steam are added to the collection.
+It of course requires you to play with an active steam-login and only the mods that are published on Steam are added to the collection. Maximum mods in a collection is 1000.
 
 Hope someone finds a use for it!
 
@@ -32,4 +32,6 @@ Since modding is just a hobby for me I expect no donations to keep modding. If y
 -  If you have the solution for a problem, please post it to the GitHub repository.
 -  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
+[![Image](https://img.shields.io/github/v/release/emipa606/SaveModlistAsCollection?label=latest%20version&style=plastic&labelColor=0070cd&color=white)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3545688635) | tags:  modlist,  upload

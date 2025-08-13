@@ -1,4 +1,8 @@
 # Changelog for SaveModlistAsCollection
 
+1.6.1 - Check for max amount of mods, fix for empty collections
+Used DeepL to update translations for ChineseSimplified, French, German
+
+
 1.6.0 - First publish
 

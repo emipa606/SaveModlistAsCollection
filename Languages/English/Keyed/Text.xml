@@ -10,6 +10,7 @@
   <SMAC.updateStatus>Update-status</SMAC.updateStatus>
   <SMAC.failed>Update failed!</SMAC.failed>
   <SMAC.noActiveMods>No mods to save!</SMAC.noActiveMods>
+  <SMAC.tooManyMods>Amount of mods is over collection limit of 1000!</SMAC.tooManyMods>
   <SMAC.startingUpdate>No mods to save!</SMAC.startingUpdate>
   <SMAC.foundMods>Found {0} active steam mods</SMAC.foundMods>
   <SMAC.fetchingExisting>Fetching existing mods in collection</SMAC.fetchingExisting>

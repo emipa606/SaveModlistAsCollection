@@ -68,14 +68,8 @@ public class CollectionUpdateStatus_Window : Window
         {
             var imageRect = innerListing.GetRect(50f);
             var lastStatus = statusMessages.Last();
-            if (lastStatus == "SMAC.failed".Translate() || lastStatus == "SMAC.noActiveMods".Translate())
-            {
-                Widgets.DrawTextureFitted(imageRect, Widgets.CheckboxOffTex, 1f);
-            }
-            else
-            {
-                Widgets.DrawTextureFitted(imageRect, Widgets.CheckboxOnTex, 1f);
-            }
+            Widgets.DrawTextureFitted(imageRect,
+                lastStatus == "SMAC.failed".Translate() ? Widgets.CheckboxOffTex : Widgets.CheckboxOnTex, 1f);
 
             innerListing.GapLine();
             if (innerListing.ButtonText("Close".Translate(), widthPct: 0.5f))
