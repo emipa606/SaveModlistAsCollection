@@ -1,5 +1,8 @@
 # Changelog for SaveModlistAsCollection
 
+1.6.2 - Collections should no longer be removed when saving a collection
+
+
 1.6.1 - Check for max amount of mods, fix for empty collections
 Used DeepL to update translations for ChineseSimplified, French, German
 

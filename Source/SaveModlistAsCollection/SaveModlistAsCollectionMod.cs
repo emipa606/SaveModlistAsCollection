@@ -147,6 +147,7 @@ internal class SaveModlistAsCollectionMod : Mod
                 ActivityMonitor = !ActivityMonitor;
             }
 
+            var removeOne = true;
             if (collection.CollectionItems > 0)
             {
                 var publishedFileIDArray = new PublishedFileId_t[collection.CollectionItems];
@@ -161,9 +162,40 @@ internal class SaveModlistAsCollectionMod : Mod
 
                 StatusMessages.Add("SMAC.removingExisting".Translate(collection.CollectionItems));
                 lastModInCollection = publishedFileIDArray[^1];
-                for (var index = 0; index < publishedFileIDArray.Length - 1; index++)
+
+                mUgcQueryHandle =
+                    SteamUGC.CreateQueryUGCDetailsRequest(publishedFileIDArray, (uint)publishedFileIDArray.Length);
+                createQueryUgcDetailsRequest = SteamUGC.SendQueryUGCRequest(mUgcQueryHandle);
+                onSteamUgcQueryCompletedCallResult.Set(createQueryUgcDetailsRequest);
+                collectionQueryResult = new SteamUGCQueryCompleted_t();
+                while (collectionQueryResult.m_eResult == EResult.k_EResultNone)
+                {
+                    Thread.Sleep(500);
+                    SteamAPI.RunCallbacks();
+                    ActivityMonitor = !ActivityMonitor;
+                }
+
+                for (uint index = 0; index < publishedFileIDArray.Length; index++)
                 {
                     var publishedFileIdT = publishedFileIDArray[index];
+                    if (SteamUGC.GetQueryUGCResult(collectionQueryResult.m_handle, index, out var details) &&
+                        details.m_eFileType != EWorkshopFileType.k_EWorkshopFileTypeCommunity)
+                    {
+                        Log.Message(
+                            $"[SaveModlistAsCollection]: {details.m_rgchTitle} is not a mod, skipping");
+                        if (lastModInCollection == publishedFileIdT)
+                        {
+                            removeOne = false;
+                        }
+
+                        continue;
+                    }
+
+                    if (index == publishedFileIDArray.Length - 1)
+                    {
+                        continue;
+                    }
+
                     removeUgcDependencyResult = new RemoveUGCDependencyResult_t();
                     var removeDependencyHandle = SteamUGC.RemoveDependency(collection.CollectionId, publishedFileIdT);
                     onRemoveUgcDependencyCompletedCallResult.Set(removeDependencyHandle);
@@ -211,7 +243,8 @@ internal class SaveModlistAsCollectionMod : Mod
                 }
 
                 // Removing the previous left mod if it was not already the first
-                if (collection.CollectionItems > 0 && index == 0 && lastModInCollection != PublishedFileId_t.Invalid)
+                if (removeOne && collection.CollectionItems > 0 && index == 0 &&
+                    lastModInCollection != PublishedFileId_t.Invalid)
                 {
                     SteamUGC.RemoveDependency(collection.CollectionId, lastModInCollection);
                 }
