@@ -1,6 +1,6 @@
 # [Save modlist as collection](https://steamcommunity.com/sharedfiles/filedetails/?id=3545688635)
 
-![Image](https://i.imgur.com/iCj5o7O.png)
+![Image](https://img.litet.net/logos/Self-Info.png)
 
 I've previously made a terminal-application for updating mod-collections on Steam for keeping my "Current play-through"-list updated.
 Then I overheard someone talking about wanting a way to create mod-collections more easily based on their current modlist.
@@ -14,13 +14,13 @@ It of course requires you to play with an active steam-login and only the mods t
 
 Hope someone finds a use for it!
 
-![Image](https://i.imgur.com/Ds0rBAD.png)
+![Image](https://img.litet.net/logos/Self-SupportAndDonations.png)
 
 Since modding is just a hobby for me I expect no donations to keep modding. If you still want to show your support you can gift me anything from my [Wishlist](https://store.steampowered.com/wishlist/id/Mlie) or buy me a cup of tea.
 
-[![Image](https://i.imgur.com/VWG0yff.png)](https://ko-fi.com/G2G55DDYD)
+[![Image](https://img.litet.net/logos/Kofi-Small.png)](https://ko-fi.com/G2G55DDYD)
 
-![Image](https://i.imgur.com/5xwDG6H.png)
+![Image](https://img.litet.net/logos/Self-ReportingIssues.png)
 
 
 
@@ -34,4 +34,4 @@ Since modding is just a hobby for me I expect no donations to keep modding. If y
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/SaveModlistAsCollection?label=latest%20version&style=plastic&labelColor=0070cd&color=white)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3545688635) | tags:  modlist,  upload
+[![Image](https://img.shields.io/github/v/release/emipa606/SaveModlistAsCollection?label=latest%20version&style=plastic&labelColor=0070cd&color=white)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3545688635) | modlist, upload

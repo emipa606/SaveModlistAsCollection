@@ -1,5 +1,8 @@
 # Changelog for SaveModlistAsCollection
 
+1.7.0 - Mod updated for 1.7 and passed autotests
+
+
 1.6.2 - Collections should no longer be removed when saving a collection
 
 

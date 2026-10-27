@@ -1,63 +1,53 @@
-# .github/copilot-instructions.md
+# GitHub Copilot Instructions for SaveModlistAsCollection Mod
 
 ## Mod Overview and Purpose
 
-**Mod Name:** Save modlist as collection
-
-The "Save modlist as collection" mod for RimWorld allows players to easily save their current in-game mod list as a Steam Workshop collection. This feature is particularly useful for organizing mods, sharing them with other players, or preserving a setup for future playthroughs. The mod streamlines the process of creating and updating collections by integrating directly with the game's mod list interface.
+The SaveModlistAsCollection mod for RimWorld allows players to save their current mod list as a Steam collection. This makes it easier for players to create and manage mod collections, especially when they want to keep track of their "Current play-through" mods. The mod requires an active Steam login and only adds mods that are published on Steam to the collection. The maximum number of mods in a collection is 1000.
 
 ## Key Features and Systems
 
-- **Collection Management:** Easily save the current mod list as a new Steam Workshop collection.
-- **Update Existing Collections:** Players can update their existing collections with the current mod list, ensuring their collections are up to date.
-- **User Interface Integration:** The mod provides user-friendly dialogs to facilitate collection creation and updates directly within the game.
+The mod provides a settings window where players can save their current mod list to a Steam collection. The mods are added to the collection in the current load order, and any existing mods on the list are removed. The mod skips itself when adding mods to the collection.
+
+The mod uses the Steam Web API to fetch the user's collections and update the collection with the current mod list. The mod also includes a status window that shows the progress of the collection update.
 
 ## Coding Patterns and Conventions
 
-- **Name Conventions:**
-  - Classes use PascalCase.
-  - Methods use PascalCase.
-  - Use clear, descriptive names for methods and variables to improve readability.
+The mod is written in C# and follows the following coding patterns and conventions:
 
-- **Organization:**
-  - Group related methods logically to facilitate understanding and maintenance.
-  - When possible, create helper classes or methods to prevent code duplication.
-
-- **Error Handling:**
-  - Implement appropriate try-catch blocks to handle potential exceptions especially when interacting with Steam's API.
+- The code is organized into classes and methods, with each class having a single responsibility.
+- The code uses descriptive variable and method names to make it easier to understand.
+- The code uses error handling to ensure that any exceptions are caught and handled gracefully.
+- The code uses comments and documentation to explain complex logic and provide guidance on how to use the code.
 
 ## XML Integration
 
-- Although this mod is primarily coded in C#, XML integration can be used for RimWorld's mod settings or to define new dialog windows in some cases. Familiarity with RimWorld's XML schema will be beneficial for designing UI elements and integrating with the game's settings.
+The mod does not use any XML files or definitions. All of the code is written in C#.
 
 ## Harmony Patching
 
-- **Purpose and Use:**
-  - Harmony is a library for patching, replacing, and altering compiled code at runtime. This mod might use Harmony to ensure the mod list can be intercepted, modified, or extended.
-  
-- **Conventions:**
-  - Ensure that patches are well-defined and scoped to avoid unintended side effects.
-  - Prefix harmony patches with "Patch_" followed by the original method name for clarity.
-  
-- **Examples:**
-  - Override or extend existing functionality, such as the method that displays the mod list in RimWorld.
-  - Use annotations like `[HarmonyPatch(typeof(TargetClass), "TargetMethod")]` to specify the target and method to be patched.
+The mod does not use Harmony patching.
 
 ## Suggestions for Copilot
 
-- **Contextual Suggestions:**
-  - Focus on offering assistance when common patterns are emerging, such as dialog window management and update loops.
-  
-- **Method Stubs and Auto-Completion:**
-  - For classes like `CollectionUpdateStatus_Window` and `Dialog_ModCollections`, suggest method stubs related to user interface actions and event handling.
-  
-- **Code Comments:**
-  - Encourage adding comments, especially around critical methods handling Steam API calls, to improve code understanding and maintenance.
-  
-- **Harmony Integration:**
-  - Provide inline suggestions for common patching patterns and encourage the use of Harmony best practices.
-  
-- **Error Handling:**
-  - Suggest patterns for handling potential exceptions when interacting with APIs, especially around network requests and file I/O. 
+Here are some suggestions for Copilot when working on the SaveModlistAsCollection mod:
 
-By following these guidelines, developers can effectively use GitHub Copilot to assist with the development and maintenance of the "Save modlist as collection" mod, ensuring a smooth development experience and a high-quality output.
+- When working with C# code, Copilot should follow the coding patterns and conventions used in the mod.
+- When working with the Steam Web API, Copilot should be familiar with the API documentation and use it to fetch and update collections.
+- When working with the mod's settings window, Copilot should be familiar with the RimWorld API for creating and managing settings windows.
+- When working with the mod's status window, Copilot should be familiar with the RimWorld API for creating and managing status windows.
+
+## Project Solution Guidelines
+- Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
+- Use these in-solution XML files as the primary files for reference and modification.
+- The `.github/copilot-instructions.md` file is included in the solution under the `.github` solution folder, so it should be read/modified from within the solution instead of using paths outside the solution. Update this file once only, as it and the parent-path solution reference point to the same file in this workspace.
+- When making functional changes in this mod, ensure the documented features stay in sync with implementation; use the in-solution `.github` copy as the primary file.
+- In the solution is also a project called Assembly-CSharp, containing a read-only version of the decompiled game source, for reference and debugging purposes.
+- For any new documentation, update this copilot-instructions.md file rather than creating separate documentation files.
+
+
+## Hard rules (must follow)
+- Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
+- Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+- When mentioning SonarQube issues, automatically use the SonarQube MCP service to fetch and address issues instead of making inferred fixes without querying SonarQube first.
+- When mentioning the rimworld log, automatically use the Rimworld MCP service to fetch the log.
+

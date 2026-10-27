@@ -67,7 +67,7 @@ public class CollectionUpdateStatus_Window : Window
         else
         {
             var imageRect = innerListing.GetRect(50f);
-            var lastStatus = statusMessages.Last();
+            var lastStatus = statusMessages[^1];
             Widgets.DrawTextureFitted(imageRect,
                 lastStatus == "SMAC.failed".Translate() ? Widgets.CheckboxOffTex : Widgets.CheckboxOnTex, 1f);
 
